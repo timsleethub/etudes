@@ -4,7 +4,8 @@ const deps = require("./package.json").dependencies;
 module.exports = {
   output: {
     publicPath: "http://localhost:8080/",
-    path: "../public/react-app"
+    filename: 'bundle.js',
+    path: '/Users/tim/IdeaProjects/etudes/public/react-app',
   },
 
   resolve: {
