@@ -1,11 +1,18 @@
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
 const deps = require("./package.json").dependencies;
+const path = require("path");
 module.exports = {
+
   output: {
     publicPath: "http://localhost:8080/",
     filename: 'bundle.js',
-    path: '/Users/tim/IdeaProjects/etudes/public/react-app',
+    path:
+      path.resolve(
+          __dirname
+      ,   '..' // up a dir
+      ,  'public/react-app' // real target
+      ),
   },
 
   resolve: {
