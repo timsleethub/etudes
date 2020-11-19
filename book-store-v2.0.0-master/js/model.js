@@ -46,18 +46,25 @@ function calcCartGroups(state) {
   const isbnGroups = groupBy(state.cart, 'isbn');
   return Object.keys(isbnGroups).map((isbn) => {
     const isbnBooks = isbnGroups[isbn]
+    const subtotal = isbnBooks.reduce((acc, book) => {
+      return acc + book.priceUsd;
+    }, 0)
     return {
       isbn: isbn,
       book: isbnBooks[0],
       count: isbnBooks.length,
+      subtotal: subtotal,
     };
   })
 }
 function calcCartView(state) {
   const cartIsbns = calcCartGroups(state)
+  const totalAmount = cartIsbns.reduce((acc, cartGroup) => {
+    return acc + cartGroup.subtotal;
+  }, 0);
   return {
     cartGroups: cartIsbns,
-    totalAmount: 1
+    totalAmount: totalAmount,
   }
 }
 

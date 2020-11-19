@@ -30,6 +30,31 @@ function renderCart(cartBooks) {
   </div>`
 }
 
+function cartGroups(cartGroups) {
+  `<div class={}>
+  cartGroups.map(renderCartGroup).join('\n')`
+
+
+}
+
+/**
+ * @param {object} cartView
+ * @param {Number}  cartView.totalAmount
+ * @param {Array<ISBN>}  cartView.cartGroups
+ * @returns {string}
+ */
+function renderNewCart(cartView) {
+  return `<div class="cart">
+    Cart
+    Itgems
+    <div class="cart__items">
+      ${cartGroups(cartView.cartGroups)}
+    </div>
+    Total Positions ${cartView.cartGroups.length}
+    Totatl ${cartView.totalAmount}
+  </div>`
+}
+
 
 function onBookClick(clickEvent) {
   const newIsbn = clickEvent.currentTarget.dataset.isbn;
