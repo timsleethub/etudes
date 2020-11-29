@@ -30,12 +30,40 @@ function renderCart(cartBooks) {
   </div>`
 }
 
-function cartGroups(cartGroups) {
-  `<div class={}>
-  cartGroups.map(renderCartGroup).join('\n')`
-
-
+/**
+ *
+ * @param cartGroup {
+ *     isbn: isbn,
+ *     book: isbnBooks[0],
+ *     count: isbnBooks.length,
+ *     subtotal: subtotal,
+ *   }
+ * @returns {string}
+ */
+function renderCartGroup(cartGroup) {
+  return `<div class="cart-items__tab">
+    title: ${cartGroup.book.title}
+    <br>
+    count: ${cartGroup.count}
+    <br>
+    subtotal: ${cartGroup.subtotal}
+  </div>`
 }
+
+
+function cartGroups(cartGroups) {
+  return `
+  <div class="cart-items">
+      ${cartGroups.map(renderCartGroup).join('\n')}
+  </div>
+  `
+}
+
+function toggleCart () {
+  let checkbox = document.getElementById('expand-cart');
+  return checkbox.checked = !checkbox.checked;
+}
+window.toggleCart = toggleCart;
 
 /**
  * @param {object} cartView
@@ -44,15 +72,28 @@ function cartGroups(cartGroups) {
  * @returns {string}
  */
 function renderNewCart(cartView) {
-  return `<div class="cart">
-    Cart
-    Itgems
-    <div class="cart__items">
-      ${cartGroups(cartView.cartGroups)}
-    </div>
-    Total Positions ${cartView.cartGroups.length}
-    Totatl ${cartView.totalAmount}
-  </div>`
+  if (!cartView) {
+    return `<div class="control-wrapper">
+        <input type="checkbox" id="expand-cart"/>
+          <div class="cart">
+          Cart is empty, but you can add some stuff :)
+          </div>
+      </div>`
+  }
+    return `<div class="control-wrapper">
+          <input onclick="toggleCart()" type="checkbox" id="expand-cart"/>
+          <div class="cart">
+          <p onclick="toggleCart()" class="expanding-button">Click to expand</p>
+
+          <div class="cart__items">
+            ${cartGroups(cartView.cartGroups)}
+          </div>
+
+          Total books: ${cartView.cartGroups.length}
+          <br>
+          Total price: ${cartView.totalAmount}
+        </div>
+      </div>`
 }
 
 
@@ -139,7 +180,7 @@ function bodyWrapper(bookList, cart, genres) {
 function renderApp(state) {
   const appRoot = document.querySelector('.bookstore-root');
   const bookListHTML = renderBookList(state.books);
-  const cartHTML = renderCart(state.cart);
+  const cartHTML = renderNewCart(state.cartView);
   const genresHTML = renderGenres(Genres);
   appRoot.innerHTML =
     createHeader()

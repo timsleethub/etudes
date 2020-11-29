@@ -255,6 +255,11 @@ textarea {
     widows: 3;
   }
 
+  p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
   h2,
   h3 {
     page-break-after: avoid;
