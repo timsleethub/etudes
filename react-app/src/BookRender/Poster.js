@@ -3,7 +3,7 @@ import React from 'react'
 const Poster = (props) => {
   return (
     <div>
-      <img src={props} alt='Image' />
+      <img src={props.poster} alt='' />
     </div>
   )
 }
