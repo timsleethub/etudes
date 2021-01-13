@@ -1,13 +1,11 @@
-let year = 2021;
-const newYears = '1 January' + year;
-
 const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
 
-
 function countdown() {
+  let year = 2021;
+  const newYears = year + '-01-01T00:00:00Z';
   const newYearsDate = new Date(newYears);
   const currentDate = new Date();
 
@@ -17,8 +15,10 @@ function countdown() {
     year = year++;
   }
 
-  const days = Math.floor(distance / (1000 * 60 * 60 * 24 ));
-  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor(
+    (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+  );
   const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -29,9 +29,9 @@ function countdown() {
 }
 
 function formatTime(time) {
-  return time < 10 ? (`0${time}`) : time;
+  return time < 10 ? `0${time}` : time;
 }
 
 countdown();
 
-setInterval(countdown, 1000)
+setInterval(countdown, 1000);
